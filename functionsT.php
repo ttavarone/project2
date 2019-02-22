@@ -8,7 +8,7 @@ $pages = array ('index.php' => 'Home',
                 'courses.php' => 'Courses',
                 'projects.php' => 'Projects');
 
-  function make_page($page_name, $page_content = null, $style = null) {
+  function make_page($page_name, $page_content, $style = null, $javascript = null) {
     
     global $pages;
     global $author;
@@ -16,43 +16,95 @@ $pages = array ('index.php' => 'Home',
     $navbar = make_navbar();
     $footer = make_footer();
     
-    echo '
-      <!DOCTYPE html>
-      <html lang="en">
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <link rel="stylesheet" href="css/bootstrap.min.css">
-      <link rel="stylesheet" href="css/custom.css">
-      <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
-      <title>Tucker Tavarone | '.$page_name.'</title>
-      <body>
+    if($style && $javascript) {
+      $style = .file_get_contents($style);
+      $javascript = .file_get_contents($javascript);
 
-        <!-- website header -->
-        <header style="background-color: #05386b">
-          '.$navbar.'
-        </header>
+      echo '
+        <!DOCTYPE html>
+        <html lang="en">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/custom.css">
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+        <head>
+          <title>Tucker Tavarone | '.$page_name.'</title>
+          <style type="text/css">
+            '.$style.'
+          </style>
+        </head>
+        <body>
 
-        <!--  main content container   -->	
-        <main class="container">
+          <!-- website header -->
+          <header style="background-color: #05386b">
+            '.$navbar.'
+          </header>
+
+          <!--  main content container   -->	
+          <main class="container">
+            '.$page_content.'
+          </main><!-- /main container -->
+    	
+    	
+        	<!-- website footer   -->
+        	<footer>
+            '.$footer.'
+        	</footer>
+
+  	
+        	<!-- javascript -->
+          <script>'.$javascript.'</script>
+        	<script src="js/jquery.min.js"></script>
+        	<script src="js/popper.min.js"></script>
+        	<script src="js/bootstrap.min.js"></script>
+
+        </body>
+        </html>'
+      }
+      else {
+        echo '
+          <!DOCTYPE html>
+          <html lang="en">
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+          <link rel="stylesheet" href="css/bootstrap.min.css">
+          <link rel="stylesheet" href="css/custom.css">
+          <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+          <head>
+          <title>Tucker Tavarone | '.$page_name.'</title>
+          </head>
+          <body>
+
+            <!-- website header -->
+            <header style="background-color: #05386b">
+              '.$navbar.'
+            </header>
+
+            <!--  main content container   -->  
+            <main class="container">
+              '.$page_content.'
+            </main><!-- /main container -->
         
-        </main><!-- /main container -->
-  	
-  	
-      	<!-- website footer   -->
-      	<footer>
-          '.$footer.'
-      	</footer>
+        
+            <!-- website footer   -->
+            <footer>
+              '.$footer.'
+            </footer>
 
-	
-      	<!-- javascript -->
-      	<script src="js/jquery.min.js"></script>
-      	<script src="js/popper.min.js"></script>
-      	<script src="js/bootstrap.min.js"></script>
+      
+            <!-- javascript -->
+            <script src="js/jquery.min.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
 
-      </body>
-      </html>'
+          </body>
+          </html>'
+      }
 }
 
 function make_navbar() {
