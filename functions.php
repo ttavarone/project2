@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 'On');
   
 $website_name = 'Tucker Tavarone, Resume';
 $author = 'Tucker Tavarone';
@@ -9,16 +10,17 @@ $pages = array ('index.php' => 'Home',
                 'projects.php' => 'Projects');
 
   function make_page($page_name, $page_content, $style = null, $javascript = null) {
-    
+
     global $pages;
     global $author;
 
     $navbar = make_navbar();
     $footer = make_footer();
+    $page_content = file_get_contents($page_content);
     
     if($style && $javascript) {
-      $style = .file_get_contents($style);
-      $javascript = .file_get_contents($javascript);
+      $style = file_get_contents($style);
+      $javascript = file_get_contents($javascript);
 
       echo '
         <!DOCTYPE html>
@@ -62,7 +64,7 @@ $pages = array ('index.php' => 'Home',
         	<script src="js/bootstrap.min.js"></script>
 
         </body>
-        </html>'
+        </html>';
       }
       else {
         echo '
@@ -103,7 +105,7 @@ $pages = array ('index.php' => 'Home',
             <script src="js/bootstrap.min.js"></script>
 
           </body>
-          </html>'
+          </html>';
       }
 }
 
@@ -113,7 +115,7 @@ function make_navbar() {
   $menu_item = '';
   
   foreach ($pages as $link => $name) {
-    $menu_item .= '<a class="nav-link active" href="'.$link.'" style="color: #05386b">'.$name.'</a>';
+    $menu_item .= '<a class="nav-link active" href="'.$link.'" style="color: #edf5e1">'.$name.'</a>';
   }
   
   return '
