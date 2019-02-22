@@ -150,4 +150,39 @@ function make_navbar() {
         '.$menu_item.'
       </nav>';
   }
+
+  function make_courses(){}
+
+  function make_card($project_name, $content, $link, $downloadable = null, $link_name = null){
+    if(downloadable){
+      echo'
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">'.$project_name.'</h5>
+              <p class="card-text">
+                '.$content.'
+              </p>
+              <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" href="'.$link.'" style="margin-left: 2%; background-color: #05386b; font-size: 100%;" download>Download</a>
+            </div>
+          </div>
+        </div>
+      ';
+    }
+    else {
+      echo'
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">'.$project_name.'</h5>
+              <p class="card-text">
+                '.$content.'
+              </p>
+              <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" href="'.$link.'" style="margin-left: 2%; background-color: #05386b; font-size: 100%;">'.$link_name.'</a>
+            </div>
+          </div>
+        </div>
+      ';
+    }
+  }
 ?>
