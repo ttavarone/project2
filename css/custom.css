@@ -1,0 +1,179 @@
+h1 {
+	font-family: 'Fjalla One', sans-serif;
+	font-size: 350%;
+	margin-top: 5%;
+	margin-left: 2%;
+	margin-bottom: 0%;
+}
+
+p {
+	margin: auto;
+}
+
+body {
+	background-color: #5cdb95;
+}
+
+.jumbotron {
+	background-color: #ffc2b3;	
+	border-radius: 20px;
+	width: 50%;
+}
+
+.bg-dark {
+	background-color: #c38d9e
+}
+
+main {
+	padding: 1%;
+	margin: 0 0 30px 0;	
+	background-color: white;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+div.biotext {
+  width: 44%;
+  float: right;
+  margin: 2%;
+}
+
+p.genericparagraph {
+	margin: 2%;
+}
+
+img#photoofme {
+  width: 44%;
+  margin: 2%;
+  border-radius: 2%;
+}
+
+img#resume {
+	margin-left: 12%;
+	margin-right: 12%;
+	margin-top: 5%;
+	border: 3px solid #05386b;
+	border-radius: 4px;
+	box-shadow: 5px 5px #379683;
+	width: 75%;
+}
+
+img#ttrbox {
+	width: 25%;
+	float: right;
+}
+
+img#lzrmze {
+	width: 25%;
+	float: right;
+}
+
+footer p {
+	/*text-align: right;*/
+    padding-right: 20px;
+}
+
+footer li, footer ul {
+	padding: 0;
+	margin: 0;
+}
+footer li {
+	margin: 0px 10px;
+	list-style: none;
+	display: inline;
+	
+}
+
+@media print {
+	nav {
+		display: none;
+	}
+	h1 {
+		display: none;
+	}
+	footer {
+		display: none;
+	}
+	body {
+		background-color: white;
+	}
+	a.btn-lg {
+		display: none;
+	}
+	img#resume {
+		border: none;
+		width: 100%;
+		margin: auto;
+	}
+
+}
+
+main h2 {
+  font-family: 'Raleway', sans-serif;
+  margin-bottom: 5%;
+  margin-top: 2.5%;
+}
+
+div h1 {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 400%;
+  font-kerning: auto;
+  text-align: center;
+}
+
+.btn-secondary {
+	background-color: #05386b;
+}
+
+tr, td, th{
+	border: 3px solid rgba(0,0,0,.125);
+	padding-left: 5%;
+	padding-right: 5%;
+	width: 15%;
+}
+
+th {
+	font-size: 125%;
+	font-family: 'Lato', sans-serif;
+	text-decoration: underline;
+}
+
+a.navbar-brand {
+  font-family: 'Raleway', sans-serif;
+  font-size: 25px;
+  font-kerning: none;
+}
+
+div.card {
+	margin-top: 3%;
+}
+
+div.card-header {
+	background-color: #379683;
+}
+
+li {
+	width: 75%;
+}
+
+ol {
+	float: left;
+	width: 45%;
+}
+
+a.btn-primary {
+	margin: 3% 0 0 0;
+}
+
+a#githublink {
+	margin-left: 2%;
+	margin-bottom: 5%;
+}
+
+footer {
+	margin-left: 118px;
+}
+
+footer a {
+	padding: 1%;
+}
