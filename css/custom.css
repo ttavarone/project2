@@ -32,7 +32,7 @@ main {
 	border-bottom-left-radius: 10px;
 }
 
-div.biotext {
+p.biotext {
   width: 44%;
   float: right;
   margin: 2%;
@@ -66,22 +66,6 @@ img#ttrbox {
 img#lzrmze {
 	width: 25%;
 	float: right;
-}
-
-footer p {
-	/*text-align: right;*/
-    padding-right: 20px;
-}
-
-footer li, footer ul {
-	padding: 0;
-	margin: 0;
-}
-footer li {
-	margin: 0px 10px;
-	list-style: none;
-	display: inline;
-	
 }
 
 @media print {
@@ -127,15 +111,18 @@ div h1 {
 
 tr, td, th{
 	border: 3px solid rgba(0,0,0,.125);
-	padding-left: 5%;
-	padding-right: 5%;
-	width: 15%;
+	width: 1%;
+	padding: 1%;
 }
 
 th {
 	font-size: 125%;
 	font-family: 'Lato', sans-serif;
 	text-decoration: underline;
+}
+table {
+	width: 50%;
+	margin: auto;
 }
 
 a.navbar-brand {
@@ -171,9 +158,57 @@ a#githublink {
 }
 
 footer {
-	margin-left: 118px;
+	background-color: white;
+	margin: auto;
+	width: 25%;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	text-align: center;
 }
 
 footer a {
 	padding: 1%;
+	background-color: white;
+	margin: auto;
+}
+
+footer nav {
+	width: 100%;
+	margin: auto;
+	float: left;
+	background-color: white;
+}
+
+footer p {
+	margin: auto;
+}
+
+@media only screen and (max-width: 920px) {
+  /* For mobile phones: */
+  footer {
+  	width: 100%;
+  	text-align: center;
+  }
+  footer nav{
+    display: none;
+  }
+
+  p.biotext {
+  	margin: auto;
+  	width: 100%;
+  }
+
+  a.btn {
+  	display: none;
+  }
+
+  img#photoofme {
+  	margin: auto;
+  	width: 100%;
+  }
+
+  table {
+  	width: 100%;
+  	margin: auto;
+  }
 }

@@ -2,6 +2,6 @@
 
 include('functions.php');
 
-make_page('Home', 'index.html');
+make_page('Home', 'index.html', False);
 
 ?>
