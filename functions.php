@@ -18,6 +18,7 @@ $proj_cards = array ('ttr.txt' => 'Ticket To Ride',
     global $pages;
     global $author;
     global $proj_cards;
+    $cards = null;
 
     $navbar = make_navbar();
     $footer = make_footer();
@@ -72,16 +73,16 @@ $proj_cards = array ('ttr.txt' => 'Ticket To Ride',
         </html>';
       }
       else if ($add_content || ($page_name == 'Projects')) {
-        $cards = null;
+        
         $courses = make_courses();
 
           if($page_name == 'Projects') {
             foreach ($proj_cards as $proj_file => $proj_name) {
-              if($proj_file == 'thisproj.txt') {
-                $cards = make_card($proj_name, file_get_contents(__DIR__ . 'assets/'$proj_file'.zip'), 'https://github.com/ttavarone', False, 'Github' );
+              if($proj_name == 'This Project') {
+                $cards .= make_card($proj_name, file_get_contents(__DIR__ . '/assets/'.$proj_file.''), 'https://github.com/ttavarone', False, 'Github' );
               }
               else {
-                $cards = make_card($proj_name, file_get_contents(__DIR__ . 'assets/'$proj_file'.zip'), 'assets/'.$proj_file.'.zip', True, '$proj_name.' );
+                $cards .= make_card($proj_name, file_get_contents(__DIR__ . '/assets/'.$proj_file.''), '/assets/'.$proj_file.'.zip', True, 'Download' );
               }
             }
             $courses = null;
@@ -248,33 +249,35 @@ function make_navbar() {
   function make_card($project_name, $content, $link = null, $downloadable = null, $link_name = null){
     if($downloadable){
       return '
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">'.$project_name.'</h5>
-              <p class="card-text">
-                '.$content.'
-              </p>
-              <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" href="'.$link.'" style="margin-left: 2%; background-color: #05386b; font-size: 100%;" download>Download</a>
+        <div class="row"
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">'.$project_name.'</h5>
+                <p class="card-text">
+                  '.$content.'
+                </p>
+                <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" href="'.$link.'" style="margin-left: 2%; background-color: #05386b; font-size: 100%;" download>Download</a>
+              </div>
             </div>
           </div>
         </div>
-      ';
+        ';
     }
     else {
       return '
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">'.$project_name.'</h5>
-              <p class="card-text">
-                '.$content.'
-              </p>
-              <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" href="'.$link.'" style="margin-left: 2%; background-color: #05386b; font-size: 100%;">'.$link_name.'</a>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">'.$project_name.'</h5>
+                <p class="card-text">
+                  '.$content.'
+                </p>
+                <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" href="'.$link.'" style="margin-left: 2%; background-color: #05386b; font-size: 100%;">'.$link_name.'</a>
+              </div>
             </div>
           </div>
-        </div>
-      ';
+        ';
     }
   }
 ?>

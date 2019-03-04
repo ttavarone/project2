@@ -198,7 +198,11 @@ footer p {
   	width: 100%;
   }
 
-  a.btn {
+  a.btn\\btn-primary\\btn-sm\\active {
+  	display: none;
+  }
+
+  div > a.btn {
   	display: none;
   }
 
