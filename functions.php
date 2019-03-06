@@ -1,7 +1,6 @@
 <?php
 ini_set('display_errors', 'On');
   
-$website_name = 'Tucker Tavarone, Resume';
 $author = 'Tucker Tavarone';
 
 $pages = array ('index.php' => 'Home',
@@ -13,164 +12,85 @@ $proj_cards = array ('ttr.txt' => 'Ticket To Ride',
                      'lm.txt' => 'Lazer Maze',
                      'thisproj.txt' => 'This Project');
 
-  function make_page($page_name, $page_content, $add_content = null, $style = null, $javascript = null) {
+function make_top($page_name, $ext_fonts = null, $style = null) {
+  global $author;
 
-    global $pages;
-    global $author;
-    global $proj_cards;
-    $cards = null;
+  if ($style != null) {
+    $style = '<style>'.file_get_contents($style).'</style>';
+  }
 
-    $navbar = make_navbar();
-    $footer = make_footer();
-    $page_content = file_get_contents($page_content);
-    
-    if($style && $javascript) {
-      $style = file_get_contents($style);
-      $javascript = file_get_contents($javascript);
+  if ($ext_fonts != null) {
+    $ext_fonts = file_get_contents(__DIR__ . '/assets/googleFonts');
+  }
 
-      echo '
-        <!DOCTYPE html>
-        <html lang="en">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/custom.css">
-        <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
-        <head>
-          <title>Tucker Tavarone | '.$page_name.'</title>
-          <style type="text/css">
-            '.$style.'
-          </style>
-        </head>
-        <body>
+  return '
+    <!DOCTYPE html>
+    <html lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    '.$ext_fonts.'
+    <head>
+      <title>'.$author.' | '.$page_name.'</title>
+      <style type="text/css">
+        '.$style.'
+      </style>
+    </head>
+    <body>';
+}
 
-          <!-- website header -->
-          <header style="background-color: #05386b">
-            '.$navbar.'
-          </header>
+function make_bottom($javascript = null) {
+  return '
+      <!-- javascript -->
+      <style>'.$javascript.'</style>
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+    </body>
+    </html>
+  ';
+}
 
-          <!--  main content container   -->	
-          <main class="container">
-            '.$page_content.'
-          </main><!-- /main container -->
-    	
-    	
-        	<!-- website footer   -->
-        	<footer>
-            '.$footer.'
-        	</footer>
+function make_page($page_name, $page_content, $add_content = null) {
 
-  	
-        	<!-- javascript -->
-          <script>'.$javascript.'</script>
-        	<script src="js/jquery.min.js"></script>
-        	<script src="js/popper.min.js"></script>
-        	<script src="js/bootstrap.min.js"></script>
+  global $pages;
+  global $author;
+  global $proj_cards;
+  $cards = null;
 
-        </body>
-        </html>';
+  if ($page_name == 'Courses') {
+    $courses = make_courses();
+  }
+  else {
+    $courses = null;
+  }
+  
+  if ($add_content || ($page_name == 'Projects')) {      
+    if($page_name == 'Projects') {
+      foreach ($proj_cards as $proj_file => $proj_name) {
+        if($proj_name == 'This Project') {
+          $cards .= make_card($proj_name, file_get_contents(__DIR__ . '/assets/'.$proj_file.''), 'https://github.com/ttavarone', False, 'Github' );
+        }
+        else {
+          $cards .= make_card($proj_name, file_get_contents(__DIR__ . '/assets/'.$proj_file.''), '/assets/'.$proj_file.'.zip', True, 'Download' );
+        }
       }
-      else if ($add_content || ($page_name == 'Projects')) {
-        
-        $courses = make_courses();
+    }
+  }
 
-          if($page_name == 'Projects') {
-            foreach ($proj_cards as $proj_file => $proj_name) {
-              if($proj_name == 'This Project') {
-                $cards .= make_card($proj_name, file_get_contents(__DIR__ . '/assets/'.$proj_file.''), 'https://github.com/ttavarone', False, 'Github' );
-              }
-              else {
-                $cards .= make_card($proj_name, file_get_contents(__DIR__ . '/assets/'.$proj_file.''), '/assets/'.$proj_file.'.zip', True, 'Download' );
-              }
-            }
-            $courses = null;
-          }
+  echo make_top($author, $page_name);
+  echo make_navbar();
+  
+  
+  echo '<main class="container">';
+  echo file_get_contents($page_content);
+  echo $cards;
+  echo $courses;
+  echo '</main>';
 
-        echo '
-          <!DOCTYPE html>
-          <html lang="en">
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-          <link rel="stylesheet" href="css/bootstrap.min.css">
-          <link rel="stylesheet" href="css/custom.css">
-          <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-          <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-          <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
-          <head>
-          <title>Tucker Tavarone | '.$page_name.'</title>
-          </head>
-          <body>
-
-            <!-- website header -->
-            <header style="background-color: #05386b">
-              '.$navbar.'
-            </header>
-
-            <!--  main content container   -->  
-            <main class="container">
-              '.$page_content.'
-              '.$cards.'
-              '.$courses.'
-            </main><!-- /main container -->
-        
-        
-            <!-- website footer   -->
-            <footer>
-              '.$footer.'
-            </footer>
-
-      
-            <!-- javascript -->
-            <script src="js/jquery.min.js"></script>
-            <script src="js/popper.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-
-          </body>
-          </html>';
-      }
-      else {
-        echo '
-          <!DOCTYPE html>
-          <html lang="en">
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-          <link rel="stylesheet" href="css/bootstrap.min.css">
-          <link rel="stylesheet" href="css/custom.css">
-          <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-          <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-          <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
-          <head>
-          <title>Tucker Tavarone | '.$page_name.'</title>
-          </head>
-          <body>
-
-            <!-- website header -->
-            <header style="background-color: #05386b">
-              '.$navbar.'
-            </header>
-
-            <!--  main content container   -->  
-            <main class="container">
-              '.$page_content.'
-            </main><!-- /main container -->
-        
-        
-            <!-- website footer   -->
-            <footer>
-              '.$footer.'
-            </footer>
-
-      
-            <!-- javascript -->
-            <script src="js/jquery.min.js"></script>
-            <script src="js/popper.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-
-          </body>
-          </html>';
-      }
+  echo make_footer();
+  echo make_bottom();
 }
 
 function make_navbar() {
@@ -183,6 +103,7 @@ function make_navbar() {
   }
   
   return '
+        <header style="background-color: #05386b">
           <!-- website navbar -->
           <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #05386b">
             <a class="navbar-brand" href="index.html" style="color: #edf5e1">Tucker Tavarone</a>
@@ -195,7 +116,8 @@ function make_navbar() {
                 '.$menu_item.'
               </div>
             </div>
-          </nav>';
+          </nav>
+        </header>';
   }
 
   function make_footer() {
@@ -209,10 +131,12 @@ function make_navbar() {
     }
 
     return '
-    &copy; 2019 '.$author.'
-      <nav>
-        '.$menu_item.'
-      </nav>';
+    <footer>
+      &copy; 2019 '.$author.'
+        <nav>
+          '.$menu_item.'
+        </nav>
+    </footer>';
   }
 
   function make_courses() {
